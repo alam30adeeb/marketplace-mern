@@ -1,11 +1,12 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
-import authController from '../backend/controllers/authControllers.js'
+import authController from './controllers/authControllers.js'
 
-const app = express()
 dotenv.config()
+const app = express()
 const PORT = process.env.PORT || 3000
+app.use(express.json())
 
 //mongoose connection
 mongoose.connect(process.env.MONGO_URI).then(()=>{
@@ -16,9 +17,9 @@ app.use("/auth/api", authController)
 
 //dummy route
 app.get('/',(req,res)=>{
-    res.send("hi from derver")
+    res.send("hi from server")
 })
 
-app.listen(PORT,(req,res)=>{
+app.listen(PORT,()=>{
     console.log(`server is running on PORT ${PORT}`)
 })
